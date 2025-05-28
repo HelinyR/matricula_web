@@ -16,7 +16,28 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         try {
-            //vamo fazer a requisiçãoa para o backend aqui
+            // Aqui você implementará a chamada para o servidor
+            // Exemplo de como será a estrutura:
+            /*
+            const response = await fetch('sua-url-api/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ email, password })
+            });
+
+            const data = await response.json();
+            
+            if (response.ok) {
+                // Login bem sucedido
+                window.location.href = '/dashboard.html';
+            } else {
+                showError(data.message || 'Erro ao fazer login');
+            }
+            */
+
+            // Por enquanto, apenas simulamos um login
             console.log('Tentativa de login:', { email, password });
             showError('Funcionalidade de login será implementada em breve');
         } catch (error) {
