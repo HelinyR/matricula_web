@@ -23,7 +23,7 @@ Este projeto tem como objetivo facilitar o gerenciamento de matrículas, supervi
 1. Clone o repositório:
    ```bash
    git clone https://github.com/seu-usuario/m4tr1cul4.git
-   ```
+   ```/
 
 2. Acesse a pasta do projeto:
    ```bash
