@@ -87,6 +87,43 @@ body {
 .main-content h2 {
     color: #333;
 }
+
+/* ...existing code... */
+.tabela-consulta {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 25px;
+    background: #fff;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(44,62,80,0.08);
+}
+.tabela-consulta th, .tabela-consulta td {
+    padding: 12px 10px;
+    text-align: left;
+    border-bottom: 1px solid #eee;
+    font-size: 15px;
+}
+.tabela-consulta th {
+    background: #3498db;
+    color: #fff;
+    font-weight: 600;
+}
+.tabela-consulta tr:last-child td {
+    border-bottom: none;
+}
+.tabela-consulta tr:hover {
+    background: #f1f8ff;
+}
+#error-message, #msgAtendentes {
+    color: #e74c3c;
+    text-align: center;
+    margin-top: 20px;
+    font-size: 14px;
+    font-weight: 500;
+    display: none;
+}
+
 @media (max-width: 900px) {
     .container {
         padding-left: 0;

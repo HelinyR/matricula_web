@@ -33,22 +33,71 @@
     <div class="main-content">
         <div id="listarAtendentes" class="section" style="display:none;">
             <h2>Lista de Atendentes</h2>
-            <!-- Tabela/listagem de atendentes aqui -->
+            <table id="tabelaAtendentes" class="tabela-consulta">
+                <thead>
+                    <tr>
+                        <th>Nome</th>
+                        <th>CPF</th>
+                        <th>Data de Nascimento</th>
+                        <th>Telefone</th>
+                        <th>Endereço</th>
+                        <th>RG</th>
+                        <th>Email</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Linhas preenchidas via JS -->
+                </tbody>
+            </table>
+            <p id="msgAtendentes" class="error-message"></p>
         </div>
         <div id="listarSupervisores" class="section" style="display:none;">
             <h2>Lista de Supervisores</h2>
-            <!-- Tabela/listagem de supervisores aqui -->
+            <table id="tabelaSupervisores" class="tabela-consulta">
+                <thead>
+                    <tr>
+                        <th>Nome</th>
+                        <th>CPF</th>
+                        <th>Data de Nascimento</th>
+                        <th>Telefone</th>
+                        <th>Endereço</th>
+                        <th>RG</th>
+                        <th>Email</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Linhas preenchidas via JS -->
+                </tbody>
+            </table>
+            <p id="msgSupervisores" class="error-message"></p>
         </div>
         <div id="listarCandidatos" class="section" style="display:none;">
             <h2>Lista de Candidatos</h2>
-            <!-- Tabela/listagem de candidatos aqui (apenas consulta) -->
+            <table id="tabelaCandidatos" class="tabela-consulta">
+                <thead>
+                    <tr>
+                        <th>Nome</th>
+                        <th>CPF</th>
+                        <th>Data de Nascimento</th>
+                        <th>Telefone</th>
+                        <th>Endereço</th>
+                        <th>RG</th>
+                        <th>Email</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Linhas preenchidas via JS -->
+                </tbody>
+            </table>
+            <p id="msgCandidatos" class="error-message"></p>
         </div>
         <div id="bemVindo" class="section">
             <h2>Bem-vindo ao Dashboard do Supervisor!</h2>
             <p>Selecione uma opção no menu ao lado.</p>
         </div>
     </div>
-</body>
+    <script src="../js/config.js"></script>
+    <script src="../js/telaSupervisor.js"></script>
     <script>
         function toggleSubmenu(id) {
             // Fecha outros submenus
@@ -59,13 +108,10 @@
             const submenu = document.getElementById(id);
             submenu.classList.toggle('show');
         }
-        function showSection(sectionId) {
-            document.querySelectorAll('.main-content .section').forEach(sec => sec.style.display = 'none');
-            document.getElementById(sectionId).style.display = 'block';
-            // Fecha o submenu de consulta após seleção
-            document.getElementById('submenuConsultar').classList.remove('show');
-        }
         // Exibe tela de boas-vindas ao carregar
         showSection('bemVindo');
     </script>
+
+</body>
+
 </html>
