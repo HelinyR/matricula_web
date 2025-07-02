@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard do Atendente</title>
+    <link rel="stylesheet" href="../css/telaSupervisor.css">
+    <script src="../js/auth.js"></script>
+    <script>
+        // Checa se o usuário é atendente nesta tela
+        window.checkUserType && window.checkUserType('atendente');
+    </script>
+</head>
+
+<body>
+    <nav class="sidebar">
+        <h2>Atendente</h2>
+        <ul>
+            <li>
+                <button class="expand-btn" onclick="toggleSubmenu('submenuConsultar')">Consultar &#9662;</button>
+                <div class="submenu" id="submenuConsultar">
+                    <button onclick="showSection('listarCandidatos')">Candidatos</button>
+                    <button onclick="showSection('minhasInformacoes')">Minhas Informações</button>
+                </div>
+            </li>
+        </ul>
+    </nav>
+    <div class="main-content">
+        <div id="listarCandidatos" class="section" style="display:none;">
+            <h2>Lista de Candidatos</h2>
+            <table id="tabelaCandidatos" class="tabela-consulta">
+                <thead>
+                    <tr>
+                        <th>Nome</th>
+                        <th>CPF</th>
+                        <th>Data de Nascimento</th>
+                        <th>Telefone</th>
+                        <th>Endereço</th>
+                        <th>RG</th>
+                        <th>Email</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Linhas preenchidas via JS -->
+                </tbody>
+            </table>
+            <p id="msgCandidatos" class="error-message"></p>
+        </div>
+        <div id="minhasInformacoes" class="section" style="display:none;">
+            <h2>Minhas Informações</h2>
+            <div id="infoAtendente">
+                <!-- Informações do atendente preenchidas via JS -->
+            </div>
+            <p id="msgAtendente" class="error-message"></p>
+        </div>
+        <div id="bemVindo" class="section">
+            <h2>Bem-vindo ao Dashboard do Atendente!</h2>
+            <p>Selecione uma opção no menu ao lado.</p>
+        </div>
+    </div>
+    <script src="../js/config.js"></script>
+    <script src="../js/telaAtendente.js"></script>
+    <script>
+        function toggleSubmenu(id) {
+            document.querySelectorAll('.submenu').forEach(sub => {
+                if (sub.id !== id) sub.classList.remove('show');
+            });
+            const submenu = document.getElementById(id);
+            submenu.classList.toggle('show');
+        }
+        // Exibe tela de boas-vindas ao carregar
+        showSection('bemVindo');
+    </script>
+</body>
+</html>
