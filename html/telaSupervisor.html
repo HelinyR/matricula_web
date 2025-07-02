@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard do Supervisor</title>
+    <link rel="stylesheet" href="../css/telaSupervisor.css">
+</head>
+
+<body>
+    <nav class="sidebar">
+        <h2>Supervisor</h2>
+        <ul>
+            <li>
+                <button class="expand-btn" onclick="toggleSubmenu()">Cadastrar &#9662;</button>
+                <div class="submenu" id="submenuCadastrar">
+                    <button onclick="window.location.href='cadastroAtendente.html'">Atendente</button>
+                    <button onclick="window.location.href='cadastraSupervisor.html'">Supervisor</button>
+                </div>
+            </li>
+            <li>
+                <button onclick="showSection('listarAtendentes')">Consultar Atendentes</button>
+            </li>
+            <li>
+                <button onclick="showSection('listarSupervisores')">Consultar Supervisores</button>
+            </li>
+            <li>
+                <button onclick="showSection('listarCandidatos')">Consultar Candidatos</button>
+            </li>
+        </ul>
+    </nav>
+    <div class="main-content">
+        <div id="listarAtendentes" class="section" style="display:none;">
+            <h2>Lista de Atendentes</h2>
+            <!-- Tabela/listagem de atendentes aqui -->
+        </div>
+        <div id="listarSupervisores" class="section" style="display:none;">
+            <h2>Lista de Supervisores</h2>
+            <!-- Tabela/listagem de supervisores aqui -->
+        </div>
+        <div id="listarCandidatos" class="section" style="display:none;">
+            <h2>Lista de Candidatos</h2>
+            <!-- Tabela/listagem de candidatos aqui (apenas consulta) -->
+        </div>
+        <div id="bemVindo" class="section">
+            <h2>Bem-vindo ao Dashboard do Supervisor!</h2>
+            <p>Selecione uma opção no menu ao lado.</p>
+        </div>
+    </div>
+    <script>
+        function toggleSubmenu() {
+            const submenu = document.getElementById('submenuCadastrar');
+            submenu.classList.toggle('show');
+        }
+        function showSection(sectionId) {
+            document.querySelectorAll('.main-content .section').forEach(sec => sec.style.display = 'none');
+            document.getElementById(sectionId).style.display = 'block';
+        }
+        // Exibe tela de boas-vindas ao carregar
+        showSection('bemVindo');
+    </script>
+</body>
+
+</html>

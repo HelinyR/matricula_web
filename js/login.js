@@ -6,40 +6,31 @@ document.addEventListener('DOMContentLoaded', () => {
         e.preventDefault();
         
         const email = document.getElementById('email').value;
-        const password = document.getElementById('password').value;
-        //nome
+        const senha = document.getElementById('password').value;
 
-        // Aqui você pode adicionar validações básicas
-        if (!email || !password) {
+        if (!email || !senha) {
             showError('Por favor, preencha todos os campos');
             return;
         }
 
         try {
-            // Aqui você implementará a chamada para o servidor
-            // Exemplo de como será a estrutura:
-            /*
-            const response = await fetch('sua-url-api/login', {
+            const response = await fetch('http://localhost:3000/login/supervisor', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({ email, password })
+                body: JSON.stringify({ email, senha })
             });
 
             const data = await response.json();
-            
-            if (response.ok) {
-                // Login bem sucedido
-                window.location.href = '/dashboard.html';
-            } else {
-                showError(data.message || 'Erro ao fazer login');
-            }
-            */
 
-            // Por enquanto, apenas simulamos um login
-            console.log('Tentativa de login:', { email, password });
-            showError('Funcionalidade de login será implementada em breve');
+            if (response.ok) {
+                //salva o token
+                localStorage.setItem('token', data.token);
+                window.location.href = '/html/telaSupervisor.html';
+            } else {
+                showError(data.erro || data.message || 'Erro ao fazer login');
+            }
         } catch (error) {
             showError('Erro ao processar a requisição');
             console.error('Erro:', error);
@@ -49,10 +40,8 @@ document.addEventListener('DOMContentLoaded', () => {
     function showError(message) {
         errorMessage.textContent = message;
         errorMessage.style.display = 'block';
-        
-        // Esconde a mensagem após 3 segundos
         setTimeout(() => {
             errorMessage.style.display = 'none';
         }, 3000);
     }
-}); 
+});
