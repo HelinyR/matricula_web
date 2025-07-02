@@ -1,4 +1,4 @@
-document.getElementById('cadastraSupervisorForm').addEventListener('submit', async function (e){
+document.getElementById('cadastraSupervisorForm').addEventListener('submit', async function (e) {
     e.preventDefault();
     const nome = document.getElementById('nome').value;
     const cpf = document.getElementById('cpf').value;
@@ -9,7 +9,7 @@ document.getElementById('cadastraSupervisorForm').addEventListener('submit', asy
     const email = document.getElementById('email').value;
     const senha = document.getElementById('senha').value;
 
-    const supervisor ={
+    const supervisor = {
         nome,
         cpf,
         data_nascimento,
@@ -20,27 +20,31 @@ document.getElementById('cadastraSupervisorForm').addEventListener('submit', asy
         senha
     };
 
-    try{
-        const response = await fetch('http://127.0.0.1:3000/supervisor',{
+    const token = localStorage.getItem('token');
+
+    try {
+        const response = await fetch('http://127.0.0.1:3000/supervisor', {
             method: 'POST',
-            headers:{
-                'content-type': 'application/json'
+            headers: {
+                'content-type': 'application/json',
+                'Authorization': `Bearer ${token}`
             },
             body: JSON.stringify(supervisor)
         });
 
-        if( response.ok){
-            alert('Supervisor cadastrado com sucesso!');
+        const data = await response.json();
+
+        if (response.ok) {
+            alert(data.mensagem || 'Supervisor cadastrado com sucesso!');
             document.getElementById('cadastraSupervisorForm').reset();
             document.getElementById('errorMessage').style.display = 'none';
-        }else{
-            const errorData = await response.json();
-            document.getElementById('errorMessage').textContent = errorData.message || 'Erro ao cadastrar supervisor. Verifique os dados e tente novamente.';
+        } else {
+            document.getElementById('errorMessage').textContent = data.erro || data.message || JSON.stringify(data) || 'Erro ao cadastrar supervisor. Verifique os dados e tente novamente.';
             document.getElementById('errorMessage').style.display = 'block';
         }
-    }catch (error){
-        document.getElementById('errorMessage').textContent = 
-            'Erro ao conectar com o servidor.';
+    } catch (error) {
+        document.getElementById('errorMessage').textContent =
+            'Erro ao conectar com o servidor: ' + error.message;
         document.getElementById('errorMessage').style.display = 'block';
     }
 });

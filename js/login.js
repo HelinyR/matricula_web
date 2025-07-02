@@ -22,17 +22,30 @@ document.addEventListener('DOMContentLoaded', () => {
                 body: JSON.stringify({ email, senha })
             });
 
-            const data = await response.json();
+            // Tenta ler a resposta como JSON, mesmo em erro
+            let data = {};
+            try {
+                data = await response.json();
+            } catch (jsonError) {
+                // Se não for JSON, mostra erro genérico
+                showError('Erro inesperado do servidor.');
+                return;
+            }
 
             if (response.ok) {
-                //salva o token
                 localStorage.setItem('token', data.token);
                 window.location.href = '/html/telaSupervisor.html';
             } else {
-                showError(data.erro || data.message || 'Erro ao fazer login');
+                // Mostra mensagem detalhada do backend
+                showError(
+                    data.erro ||
+                    data.message ||
+                    data.mensagem ||
+                    'Erro ao fazer login'
+                );
             }
         } catch (error) {
-            showError('Erro ao processar a requisição');
+            showError('Erro ao conectar com o servidor.');
             console.error('Erro:', error);
         }
     });
@@ -42,6 +55,6 @@ document.addEventListener('DOMContentLoaded', () => {
         errorMessage.style.display = 'block';
         setTimeout(() => {
             errorMessage.style.display = 'none';
-        }, 3000);
+        }, 4000);
     }
 });
