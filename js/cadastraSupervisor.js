@@ -23,7 +23,7 @@ document.getElementById('cadastraSupervisorForm').addEventListener('submit', asy
     const token = localStorage.getItem('token');
 
     try {
-        const response = await fetch('http://127.0.0.1:3000/supervisor', {
+        const response = await fetch(window.APP_CONFIG.API_BASE_URL + '/supervisor', {
             method: 'POST',
             headers: {
                 'content-type': 'application/json',
