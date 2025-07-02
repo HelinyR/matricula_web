@@ -29,6 +29,9 @@
     <div class="main-content">
         <div id="listarCandidatos" class="section" style="display:none;">
             <h2>Lista de Candidatos</h2>
+            <button id="btnNovoCandidato" type="button" class="btn-novo-candidato">
+                <span style="font-size:18px; font-weight:bold; margin-right:6px;">+</span> Novo Candidato
+            </button>
             <table id="tabelaCandidatos" class="tabela-consulta">
                 <thead>
                     <tr>
@@ -39,6 +42,10 @@
                         <th>Endereço</th>
                         <th>RG</th>
                         <th>Email</th>
+                        <th>Matrícula</th>
+                        <th>Curso</th>
+                        <th>Unidade</th>
+                        <th>Turno</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -46,6 +53,28 @@
                 </tbody>
             </table>
             <p id="msgCandidatos" class="error-message"></p>
+        </div>
+        <!-- Modal de cadastro de candidato -->
+        <div id="modalCandidato" style="display:none; position:fixed; top:0; left:0; width:100vw; height:100vh; background:rgba(0,0,0,0.4); z-index:1000; align-items:center; justify-content:center;">
+            <div style="background:#fff; padding:30px; border-radius:10px; max-width:500px; margin:auto; position:relative;">
+                <button id="fecharModalCandidato" style="position:absolute; top:10px; right:10px;">X</button>
+                <h3>Novo Candidato</h3>
+                <form id="formCandidato">
+                    <input type="text" name="nome" placeholder="Nome" required>
+                    <input type="text" name="cpf" placeholder="CPF" required>
+                    <input type="date" name="data_nascimento" placeholder="Data de Nascimento" required>
+                    <input type="text" name="telefone" placeholder="Telefone" required>
+                    <input type="text" name="endereco" placeholder="Endereço" required>
+                    <input type="text" name="rg" placeholder="RG" required>
+                    <input type="email" name="email" placeholder="Email" required>
+                    <input type="text" name="matricula" placeholder="Matrícula" required>
+                    <input type="text" name="curso" placeholder="Curso" required>
+                    <input type="text" name="unidade" placeholder="Unidade" required>
+                    <input type="text" name="turno" placeholder="Turno" required>
+                    <button type="submit">Cadastrar</button>
+                    <p id="msgFormCandidato" class="error-message"></p>
+                </form>
+            </div>
         </div>
         <div id="minhasInformacoes" class="section" style="display:none;">
             <h2>Minhas Informações</h2>

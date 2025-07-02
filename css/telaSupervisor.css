@@ -87,8 +87,6 @@ body {
 .main-content h2 {
     color: #333;
 }
-
-/* ...existing code... */
 .tabela-consulta {
     width: 100%;
     border-collapse: collapse;
@@ -122,6 +120,27 @@ body {
     font-size: 14px;
     font-weight: 500;
     display: none;
+}
+.btn-novo-candidato {
+    background: linear-gradient(90deg, #3498db 60%, #8e44ad 100%);
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    padding: 12px 28px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    margin-bottom: 18px;
+    margin-top: 8px;
+    box-shadow: 0 2px 8px rgba(44,62,80,0.08);
+    transition: background 0.2s, transform 0.1s;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+.btn-novo-candidato:hover {
+    background: linear-gradient(90deg, #2980b9 60%, #6c3483 100%);
+    transform: translateY(-2px) scale(1.03);
 }
 
 @media (max-width: 900px) {
