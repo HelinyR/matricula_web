@@ -2,9 +2,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const loginForm = document.getElementById('loginForm');
     const errorMessage = document.getElementById('errorMessage');
 
+    console.log("login.js carregado");
+
     loginForm.addEventListener('submit', async (e) => {
         e.preventDefault();
-        
+
         const email = document.getElementById('email').value;
         const senha = document.getElementById('password').value;
 
@@ -13,21 +15,28 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
+        if (grecaptcha.getResponse().length === 0) {
+            showError('Por favor, confirme que você não é um robô.');
+            return;
+        }
+
+        //Pega o token do reCAPTCHA v2 gerado automaticamente
+        const recaptchaToken = grecaptcha.getResponse();
+
         try {
-            const response = await fetch(window.APP_CONFIG.API_BASE_URL +'/login/supervisor', {
+            const response = await fetch(window.APP_CONFIG.API_BASE_URL + '/login/supervisor', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({ email, senha })
+                //envia o token no campo 'g-recaptcha-response' para backend validar
+                body: JSON.stringify({ email, senha, 'g-recaptcha-response': recaptchaToken })
             });
 
-            // Tenta ler a resposta como JSON, mesmo em erro
             let data = {};
             try {
                 data = await response.json();
-            } catch (jsonError) {
-                // Se não for JSON, mostra erro genérico
+            } catch {
                 showError('Erro inesperado do servidor.');
                 return;
             }
@@ -36,14 +45,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 localStorage.setItem('token', data.token);
                 window.location.href = '/html/telaSupervisor.html';
             } else {
-                // Mostra mensagem detalhada do backend
-                showError(
-                    data.erro ||
-                    data.message ||
-                    data.mensagem ||
-                    'Erro ao fazer login'
-                );
+                showError(data.erro || data.message || data.mensagem || 'Erro ao fazer login');
             }
+
         } catch (error) {
             showError('Erro ao conectar com o servidor.');
             console.error('Erro:', error);

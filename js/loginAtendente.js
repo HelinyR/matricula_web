@@ -12,9 +12,18 @@ document.addEventListener('DOMContentLoaded', function() {
         msg.textContent = '';
         msg.style.display = 'none';
 
-        // Corrigido para pegar os campos corretos do formulário
         const email = form.email.value.trim();
         const password = form.password.value;
+
+        // NOVO: Verifica se o reCAPTCHA foi marcado
+        if (typeof grecaptcha === 'undefined' || grecaptcha.getResponse().length === 0) {
+            msg.textContent = 'Por favor, confirme que você não é um robô.';
+            msg.style.display = 'block';
+            return;
+        }
+
+        // NOVO: Pega o token do reCAPTCHA v2
+        const recaptchaToken = grecaptcha.getResponse();
 
         try {
             const response = await fetch(window.APP_CONFIG.API_BASE_URL + '/login/atendente', {
@@ -22,7 +31,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({ email, senha: password })
+                // ALTERAÇÃO: envia o token no campo correto 'g-recaptcha-response'
+                body: JSON.stringify({ email, senha: password, 'g-recaptcha-response': recaptchaToken })
             });
 
             if (!response.ok) {
