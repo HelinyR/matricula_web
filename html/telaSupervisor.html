@@ -4,118 +4,219 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard do Supervisor</title>
+    <title>Dashboard Supervisor | M4tr1cul4</title>
+    <link rel="icon" type="image/png" href="../assets/logo_branca.png">
     <link rel="stylesheet" href="../css/telaSupervisor.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="../js/auth.js"></script>
     <script>
-        // Checa se o usuário é supervisor nesta tela
         window.checkUserType && window.checkUserType('supervisor');
     </script>
 </head>
 
 <body>
-    <nav class="sidebar">
-        <h2>Supervisor</h2>
-        <ul>
-            <li>
-                <button class="expand-btn" onclick="toggleSubmenu('submenuCadastrar')">Cadastrar &#9662;</button>
-                <div class="submenu" id="submenuCadastrar">
-                    <button onclick="window.location.href='cadastroAtendente.html'">Atendente</button>
-                    <button onclick="window.location.href='cadastraSupervisor.html'">Supervisor</button>
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <img src="../assets/logo_branca.png" alt="M4tr1cul4 Logo" class="sidebar-logo">
+            </div>
+            
+            <nav class="sidebar-nav">
+                <div class="nav-section">
+                    <h3 class="nav-section-title">Cadastros</h3>
+                    <ul>
+                        <li>
+                            <button class="nav-btn expand-btn" onclick="toggleSubmenu('submenuCadastrar')">
+                                <i class="fas fa-user-plus"></i>
+                                <span>Cadastrar</span>
+                                <i class="fas fa-chevron-down"></i>
+                            </button>
+                            <div class="submenu" id="submenuCadastrar">
+                                <button class="submenu-btn" onclick="window.location.href='cadastroAtendente.html'">
+                                    <i class="fas fa-user-tie"></i> Atendente
+                                </button>
+                                <button class="submenu-btn" onclick="window.location.href='cadastraSupervisor.html'">
+                                    <i class="fas fa-user-shield"></i> Supervisor
+                                </button>
+                            </div>
+                        </li>
+                    </ul>
                 </div>
-            </li>
-            <li>
-                <button class="expand-btn" onclick="toggleSubmenu('submenuConsultar')">Consultar &#9662;</button>
-                <div class="submenu" id="submenuConsultar">
-                    <button onclick="showSection('listarAtendentes')">Atendente</button>
-                    <button onclick="showSection('listarSupervisores')">Supervisor</button>
-                    <button onclick="showSection('listarCandidatos')">Candidato</button>
+                
+                <div class="nav-section">
+                    <h3 class="nav-section-title">Consultas</h3>
+                    <ul>
+                        <li>
+                            <button class="nav-btn expand-btn" onclick="toggleSubmenu('submenuConsultar')">
+                                <i class="fas fa-search"></i>
+                                <span>Consultar</span>
+                                <i class="fas fa-chevron-down"></i>
+                            </button>
+                            <div class="submenu" id="submenuConsultar">
+                                <button class="submenu-btn" onclick="showSection('listarAtendentes')">
+                                    <i class="fas fa-user-tie"></i> Atendentes
+                                </button>
+                                <button class="submenu-btn" onclick="showSection('listarSupervisores')">
+                                    <i class="fas fa-user-shield"></i> Supervisores
+                                </button>
+                                <button class="submenu-btn" onclick="showSection('listarCandidatos')">
+                                    <i class="fas fa-users"></i> Candidatos
+                                </button>
+                            </div>
+                        </li>
+                    </ul>
                 </div>
-            </li>
-        </ul>
-    </nav>
-    <div class="main-content">
-        <div id="listarAtendentes" class="section" style="display:none;">
-            <h2>Lista de Atendentes</h2>
-            <table id="tabelaAtendentes" class="tabela-consulta">
-                <thead>
-                    <tr>
-                        <th>Nome</th>
-                        <th>CPF</th>
-                        <th>Data de Nascimento</th>
-                        <th>Telefone</th>
-                        <th>Endereço</th>
-                        <th>RG</th>
-                        <th>Email</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <!-- Linhas preenchidas via JS -->
-                </tbody>
-            </table>
-            <p id="msgAtendentes" class="error-message"></p>
-        </div>
-        <div id="listarSupervisores" class="section" style="display:none;">
-            <h2>Lista de Supervisores</h2>
-            <table id="tabelaSupervisores" class="tabela-consulta">
-                <thead>
-                    <tr>
-                        <th>Nome</th>
-                        <th>CPF</th>
-                        <th>Data de Nascimento</th>
-                        <th>Telefone</th>
-                        <th>Endereço</th>
-                        <th>RG</th>
-                        <th>Email</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <!-- Linhas preenchidas via JS -->
-                </tbody>
-            </table>
-            <p id="msgSupervisores" class="error-message"></p>
-        </div>
-        <div id="listarCandidatos" class="section" style="display:none;">
-            <h2>Lista de Candidatos</h2>
-            <table id="tabelaCandidatos" class="tabela-consulta">
-                <thead>
-                    <tr>
-                        <th>Nome</th>
-                        <th>CPF</th>
-                        <th>Data de Nascimento</th>
-                        <th>Telefone</th>
-                        <th>Endereço</th>
-                        <th>RG</th>
-                        <th>Email</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <!-- Linhas preenchidas via JS -->
-                </tbody>
-            </table>
-            <p id="msgCandidatos" class="error-message"></p>
-        </div>
-        <div id="bemVindo" class="section">
-            <h2>Bem-vindo ao Dashboard do Supervisor!</h2>
-            <p>Selecione uma opção no menu ao lado.</p>
-        </div>
+            </nav>
+            
+            <div class="sidebar-footer">
+                <button class="logout-btn" onclick="logout()">
+                    <i class="fas fa-sign-out-alt"></i> Sair
+                </button>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <header class="content-header">
+                <h1>Dashboard Supervisor</h1>
+                <div class="user-info">
+                    <span id="userName">Usuário</span>
+                    <div class="user-avatar">
+                        <i class="fas fa-user-circle"></i>
+                    </div>
+                </div>
+            </header>
+            
+            <div class="content-body">
+                <!-- Welcome Section -->
+                <div id="bemVindo" class="section active">
+                    <div class="welcome-card">
+                        <h2>Bem-vindo ao M4tr1cul4</h2>
+                        <p>Selecione uma opção no menu ao lado para começar.</p>
+                        <div class="welcome-stats">
+                            <div class="stat-card">
+                                <i class="fas fa-user-tie"></i>
+                                <h3>Atendentes</h3>
+                                <span id="atendentesCount">0</span>
+                            </div>
+                            <div class="stat-card">
+                                <i class="fas fa-users"></i>
+                                <h3>Candidatos</h3>
+                                <span id="candidatosCount">0</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Atendentes Section -->
+                <div id="listarAtendentes" class="section">
+                    <div class="section-header">
+                        <h2><i class="fas fa-user-tie"></i> Lista de Atendentes</h2>
+                        <button class="refresh-btn" onclick="loadAtendentes()">
+                            <i class="fas fa-sync-alt"></i> Atualizar
+                        </button>
+                    </div>
+                    <div class="table-container">
+                        <table id="tabelaAtendentes" class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Nome</th>
+                                    <th>CPF</th>
+                                    <th>Email</th>
+                                    <th>Telefone</th>
+                                    <th>Ações</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- Dados serão preenchidos via JavaScript -->
+                            </tbody>
+                        </table>
+                    </div>
+                    <p id="msgAtendentes" class="error-message"></p>
+                </div>
+                
+                <!-- Supervisores Section -->
+                <div id="listarSupervisores" class="section">
+                    <div class="section-header">
+                        <h2><i class="fas fa-user-shield"></i> Lista de Supervisores</h2>
+                        <button class="refresh-btn" onclick="loadSupervisores()">
+                            <i class="fas fa-sync-alt"></i> Atualizar
+                        </button>
+                    </div>
+                    <div class="table-container">
+                        <table id="tabelaSupervisores" class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Nome</th>
+                                    <th>CPF</th>
+                                    <th>Email</th>
+                                    <th>Telefone</th>
+                                    <th>Ações</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- Dados serão preenchidos via JavaScript -->
+                            </tbody>
+                        </table>
+                    </div>
+                    <p id="msgSupervisores" class="error-message"></p>
+                </div>
+                
+                <!-- Candidatos Section -->
+                <div id="listarCandidatos" class="section">
+                    <div class="section-header">
+                        <h2><i class="fas fa-users"></i> Lista de Candidatos</h2>
+                        <button class="refresh-btn" onclick="loadCandidatos()">
+                            <i class="fas fa-sync-alt"></i> Atualizar
+                        </button>
+                    </div>
+                    <div class="table-container">
+                        <table id="tabelaCandidatos" class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Nome</th>
+                                    <th>CPF</th>
+                                    <th>Email</th>
+                                    <th>Telefone</th>
+                                    <th>Status</th>
+                                    <th>Ações</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- Dados serão preenchidos via JavaScript -->
+                            </tbody>
+                        </table>
+                    </div>
+                    <p id="msgCandidatos" class="error-message"></p>
+                </div>
+            </div>
+        </main>
     </div>
+
     <script src="../js/config.js"></script>
     <script src="../js/telaSupervisor.js"></script>
     <script>
         function toggleSubmenu(id) {
-            // Fecha outros submenus
             document.querySelectorAll('.submenu').forEach(sub => {
                 if (sub.id !== id) sub.classList.remove('show');
             });
-            // Alterna submenu clicado
-            const submenu = document.getElementById(id);
-            submenu.classList.toggle('show');
+            document.getElementById(id).classList.toggle('show');
         }
-        // Exibe tela de boas-vindas ao carregar
-        showSection('bemVindo');
+
+        function showSection(id) {
+            document.querySelectorAll('.section').forEach(section => {
+                section.classList.remove('active');
+            });
+            document.getElementById(id).classList.add('active');
+        }
+
+        // Carrega dados iniciais
+        document.addEventListener('DOMContentLoaded', () => {
+            showSection('bemVindo');
+            // Carrega contagens iniciais
+            loadCounts();
+        });
     </script>
-
 </body>
-
 </html>
