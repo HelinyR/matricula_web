@@ -51,7 +51,7 @@ async function carregarCandidatos() {
             tr.innerHTML = `
                 <td>${cd.nome}</td>
                 <td>${cd.cpf}</td>
-                <td>${cd.matricula}</td>
+                <td>${cd.matricula_id}</td>
                 <td>${cd.data_nascimento ? new Date(cd.data_nascimento).toLocaleDateString() : ''}</td>
                 <td>${cd.telefone}</td>
                 <td>${cd.endereco}</td>

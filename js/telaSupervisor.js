@@ -59,6 +59,60 @@ async function carregarAtendentes() {
     }
 }
 
+async function pesquisarAtendentes() {
+    const termo = document.getElementById('inputPesquisaAtendente').value.toLowerCase();
+    const tabela = document.getElementById('tabelaAtendentes').querySelector('tbody');
+    const msg = document.getElementById('msgAtendentes');
+    tabela.innerHTML = '';
+    msg.style.display = 'none';
+
+    const token = localStorage.getItem('token');
+
+    try {
+        const response = await fetch(window.APP_CONFIG.API_BASE_URL + '/atendente', {
+            method: 'GET',
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        });
+
+        if (!response.ok) {
+            const erro = await response.json();
+            msg.textContent = erro.erro || erro.message || 'Erro ao buscar atendentes.';
+            msg.style.display = 'block';
+            return;
+        }
+
+        const atendentes = await response.json();
+
+        const filtrados = atendentes.filter(at => at.nome.toLowerCase().includes(termo));
+
+        if (filtrados.length === 0) {
+            msg.textContent = 'Nenhum atendente encontrado.';
+            msg.style.display = 'block';
+            return;
+        }
+
+        filtrados.forEach(at => {
+            const tr = document.createElement('tr');
+            tr.innerHTML = `
+                <td>${at.nome}</td>
+                <td>${at.cpf}</td>
+                <td>${at.data_nascimento ? new Date(at.data_nascimento).toLocaleDateString() : ''}</td>
+                <td>${at.telefone}</td>
+                <td>${at.endereco}</td>
+                <td>${at.rg}</td>
+                <td>${at.email}</td>
+            `;
+            tabela.appendChild(tr);
+        });
+
+    } catch (error) {
+        console.error('[pesquisarAtendentes] Erro de conexão:', error);
+        msg.textContent = 'Erro ao conectar com o servidor.';
+        msg.style.display = 'block';
+    }
+}
 
 
 async function carregarSupervisores() {
