@@ -3,10 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cadastrar Atendente | M4tr1cul4</title>
+    <title>Cadastrar Candidato | M4tr1cul4</title>
     <link rel="icon" type="image/png" href="../assets/logo_branca.png">
-    <link rel="stylesheet" href="../css/cadastraAtendente.css">
+    <link rel="stylesheet" href="../css/cadastraCandidato.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="../js/auth.js"></script>
+    <script>
+        window.checkUserType && window.checkUserType('atendente');
+    </script>
 </head>
 <body>
     <div class="dashboard-container">
@@ -18,33 +22,18 @@
             
             <nav class="sidebar-nav">
                 <div class="nav-section">
-                    <h3 class="nav-section-title">Cadastros</h3>
+                    <h3 class="nav-section-title">Menu</h3>
                     <ul>
                         <li>
-                            <button class="nav-btn expand-btn" onclick="toggleSubmenu('submenuCadastrar')">
-                                <i class="fas fa-user-plus"></i>
-                                <span>Cadastrar</span>
-                                <i class="fas fa-chevron-down"></i>
-                            </button>
-                            <div class="submenu" id="submenuCadastrar">
-                                <button class="submenu-btn active">
-                                    <i class="fas fa-user-tie"></i> Atendente
-                                </button>
-                                <button class="submenu-btn" onclick="window.location.href='cadastraSupervisor.html'">
-                                    <i class="fas fa-user-shield"></i> Supervisor
-                                </button>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-                
-                <div class="nav-section">
-                    <h3 class="nav-section-title">Navegação</h3>
-                    <ul>
-                        <li>
-                            <button class="nav-btn" onclick="window.location.href='telaSupervisor.html'">
+                            <button class="nav-btn" onclick="window.location.href='telaAtendente.html'">
                                 <i class="fas fa-home"></i>
                                 <span>Dashboard</span>
+                            </button>
+                        </li>
+                        <li>
+                            <button class="nav-btn active">
+                                <i class="fas fa-user-plus"></i>
+                                <span>Novo Candidato</span>
                             </button>
                         </li>
                     </ul>
@@ -61,20 +50,20 @@
         <!-- Main Content -->
         <main class="main-content">
             <header class="content-header">
-                <h1>Cadastrar Atendente</h1>
+                <h1>Cadastrar Candidato</h1>
                 <div class="user-info">
-                    <span id="userName">Supervisor</span>
+                    <span id="userName">Atendente</span>
                     <div class="user-avatar">
-                        <i class="fas fa-user-shield"></i>
+                        <i class="fas fa-user-tie"></i>
                     </div>
                 </div>
             </header>
             
             <div class="content-body">
                 <div class="form-container">
-                    <form id="cadastraAtendenteForm" class="form-cadastro">
+                    <form id="cadastraCandidatoForm" class="form-cadastro">
                         <div class="form-header">
-                            <h2><i class="fas fa-user-tie"></i> Informações do Atendente</h2>
+                            <h2><i class="fas fa-user-graduate"></i> Informações do Candidato</h2>
                         </div>
                         
                         <div class="form-grid">
@@ -85,7 +74,7 @@
                             
                             <div class="input-group">
                                 <label for="cpf"><i class="fas fa-id-card"></i> CPF</label>
-                                <input type="text" id="cpf" name="cpf" placeholder="Sem pontuação" required>
+                                <input type="text" id="cpf" name="cpf" placeholder="000.000.000-00" required>
                             </div>
                             
                             <div class="input-group">
@@ -95,7 +84,17 @@
                             
                             <div class="input-group">
                                 <label for="telefone"><i class="fas fa-phone"></i> Telefone</label>
-                                <input type="text" id="telefone" name="telefone" placeholder="Sem pontuação" required>
+                                <input type="text" id="telefone" name="telefone" placeholder="(00) 00000-0000" required>
+                            </div>
+                            
+                            <div class="input-group">
+                                <label for="email"><i class="fas fa-envelope"></i> E-mail</label>
+                                <input type="email" id="email" name="email" placeholder="candidato@email.com" required>
+                            </div>
+                            
+                            <div class="input-group">
+                                <label for="rg"><i class="fas fa-address-card"></i> RG</label>
+                                <input type="text" id="rg" name="rg" placeholder="00.000.000-0" required>
                             </div>
                             
                             <div class="input-group">
@@ -104,28 +103,43 @@
                             </div>
                             
                             <div class="input-group">
-                                <label for="rg"><i class="fas fa-address-card"></i> RG</label>
-                                <input type="text" id="rg" name="rg" placeholder="Sem pontuação" required>
+                                <label for="curso"><i class="fas fa-graduation-cap"></i> Curso</label>
+                                <select id="curso" name="curso" required>
+                                    <option value="">Selecione um curso</option>
+                                    <option value="Administração">Administração</option>
+                                    <option value="Direito">Direito</option>
+                                    <option value="Engenharia">Engenharia</option>
+                                    <option value="Medicina">Medicina</option>
+                                </select>
                             </div>
                             
                             <div class="input-group">
-                                <label for="email"><i class="fas fa-envelope"></i> E-mail</label>
-                                <input type="email" id="email" name="email" placeholder="atendente@instituicao.com" required>
+                                <label for="unidade"><i class="fas fa-building"></i> Unidade</label>
+                                <select id="unidade" name="unidade" required>
+                                    <option value="">Selecione uma unidade</option>
+                                    <option value="Centro">Centro</option>
+                                    <option value="Zona Norte">Zona Norte</option>
+                                    <option value="Zona Sul">Zona Sul</option>
+                                </select>
                             </div>
                             
                             <div class="input-group">
-                                <label for="senha"><i class="fas fa-lock"></i> Senha</label>
-                                <input type="password" id="senha" name="senha" placeholder="••••••••" required>
-                                <i class="fas fa-eye password-toggle" id="togglePassword"></i>
+                                <label for="turno"><i class="fas fa-clock"></i> Turno</label>
+                                <select id="turno" name="turno" required>
+                                    <option value="">Selecione um turno</option>
+                                    <option value="Manhã">Manhã</option>
+                                    <option value="Tarde">Tarde</option>
+                                    <option value="Noite">Noite</option>
+                                </select>
                             </div>
                         </div>
                         
                         <div class="form-actions">
-                            <button type="button" class="secondary-btn" onclick="window.location.href='telaSupervisor.html'">
+                            <button type="button" class="secondary-btn" onclick="window.location.href='telaAtendente.html'">
                                 <i class="fas fa-arrow-left"></i> Voltar
                             </button>
                             <button type="submit" class="primary-btn">
-                                <i class="fas fa-save"></i> Cadastrar Atendente
+                                <i class="fas fa-save"></i> Cadastrar Candidato
                             </button>
                         </div>
                         
@@ -136,22 +150,9 @@
         </main>
     </div>
 
-    <script src="../js/auth.js"></script>
     <script src="../js/config.js"></script>
-    <script src="../js/cadastraAtendente.js"></script>
+    <script src="../js/cadastraCandidato.js"></script>
     <script>
-        // Mostrar/ocultar senha
-        const togglePassword = document.getElementById('togglePassword');
-        const passwordInput = document.getElementById('senha');
-        
-        if (togglePassword && passwordInput) {
-            togglePassword.addEventListener('click', function() {
-                const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
-                passwordInput.setAttribute('type', type);
-                this.classList.toggle('fa-eye-slash');
-            });
-        }
-
         // Função para alternar submenus
         function toggleSubmenu(id) {
             document.querySelectorAll('.submenu').forEach(sub => {

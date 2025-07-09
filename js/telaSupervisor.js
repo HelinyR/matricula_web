@@ -59,6 +59,8 @@ async function carregarAtendentes() {
     }
 }
 
+
+
 async function carregarSupervisores() {
     const tabela = document.getElementById('tabelaSupervisores')?.querySelector('tbody');
     const msg = document.getElementById('msgSupervisores');
@@ -189,6 +191,6 @@ function showSection(sectionId) {
 }
 
 // Exibe tela de boas-vindas ao carregar a página
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     showSection('bemVindo');
 });

@@ -21,7 +21,7 @@
             <div class="sidebar-header">
                 <img src="../assets/logo_branca.png" alt="M4tr1cul4 Logo" class="sidebar-logo">
             </div>
-            
+
             <nav class="sidebar-nav">
                 <div class="nav-section">
                     <h3 class="nav-section-title">Cadastros</h3>
@@ -43,7 +43,7 @@
                         </li>
                     </ul>
                 </div>
-                
+
                 <div class="nav-section">
                     <h3 class="nav-section-title">Consultas</h3>
                     <ul>
@@ -68,7 +68,7 @@
                     </ul>
                 </div>
             </nav>
-            
+
             <div class="sidebar-footer">
                 <button class="logout-btn" onclick="logout()">
                     <i class="fas fa-sign-out-alt"></i> Sair
@@ -87,7 +87,7 @@
                     </div>
                 </div>
             </header>
-            
+
             <div class="content-body">
                 <!-- Welcome Section -->
                 <div id="bemVindo" class="section active">
@@ -108,14 +108,24 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <!-- Atendentes Section -->
+                <!-- Substitua a seção de listarAtendentes por este código -->
                 <div id="listarAtendentes" class="section">
                     <div class="section-header">
                         <h2><i class="fas fa-user-tie"></i> Lista de Atendentes</h2>
-                        <button class="refresh-btn" onclick="loadAtendentes()">
-                            <i class="fas fa-sync-alt"></i> Atualizar
-                        </button>
+                        <div class="section-actions">
+                            <div class="search-container">
+                                <input type="text" id="searchAtendentes" placeholder="Buscar por nome, CPF ou RG..."
+                                    class="search-input">
+                                <button class="search-btn" onclick="pesquisarAtendentes()">
+                                    <i class="fas fa-search"></i>
+                                </button>
+                            </div>
+                            <button class="refresh-btn" onclick="carregarAtendentes()">
+                                <i class="fas fa-sync-alt"></i> Atualizar
+                            </button>
+                        </div>
                     </div>
                     <div class="table-container">
                         <table id="tabelaAtendentes" class="data-table">
@@ -123,9 +133,11 @@
                                 <tr>
                                     <th>Nome</th>
                                     <th>CPF</th>
-                                    <th>Email</th>
+                                    <th>Data de nascimento</th>
                                     <th>Telefone</th>
-                                    <th>Ações</th>
+                                    <th>Endereço</th>
+                                    <th>RG</th>
+                                    <th>E-mail</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -135,12 +147,12 @@
                     </div>
                     <p id="msgAtendentes" class="error-message"></p>
                 </div>
-                
+
                 <!-- Supervisores Section -->
                 <div id="listarSupervisores" class="section">
                     <div class="section-header">
                         <h2><i class="fas fa-user-shield"></i> Lista de Supervisores</h2>
-                        <button class="refresh-btn" onclick="loadSupervisores()">
+                        <button class="refresh-btn" onclick="carregarSupervisores()">
                             <i class="fas fa-sync-alt"></i> Atualizar
                         </button>
                     </div>
@@ -150,9 +162,11 @@
                                 <tr>
                                     <th>Nome</th>
                                     <th>CPF</th>
-                                    <th>Email</th>
+                                    <th>Data de nascimento</th>
                                     <th>Telefone</th>
-                                    <th>Ações</th>
+                                    <th>Endereço</th>
+                                    <th>RG</th>
+                                    <th>E-mail</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -162,12 +176,12 @@
                     </div>
                     <p id="msgSupervisores" class="error-message"></p>
                 </div>
-                
+
                 <!-- Candidatos Section -->
                 <div id="listarCandidatos" class="section">
                     <div class="section-header">
                         <h2><i class="fas fa-users"></i> Lista de Candidatos</h2>
-                        <button class="refresh-btn" onclick="loadCandidatos()">
+                        <button class="refresh-btn" onclick="carregarCandidatos()">
                             <i class="fas fa-sync-alt"></i> Atualizar
                         </button>
                     </div>
@@ -177,10 +191,11 @@
                                 <tr>
                                     <th>Nome</th>
                                     <th>CPF</th>
-                                    <th>Email</th>
+                                    <th>Data de nascimento</th>
                                     <th>Telefone</th>
-                                    <th>Status</th>
-                                    <th>Ações</th>
+                                    <th>Endereço</th>
+                                    <th>RG</th>
+                                    <th>E-mail</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -197,6 +212,9 @@
     <script src="../js/config.js"></script>
     <script src="../js/telaSupervisor.js"></script>
     <script>
+        carregarAtendentes()
+        carregarCandidatos()
+        carregarSupervisores()
         function toggleSubmenu(id) {
             document.querySelectorAll('.submenu').forEach(sub => {
                 if (sub.id !== id) sub.classList.remove('show');
@@ -219,4 +237,5 @@
         });
     </script>
 </body>
+
 </html>

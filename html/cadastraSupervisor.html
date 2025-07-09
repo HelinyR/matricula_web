@@ -1,52 +1,164 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cadastrar Supervisor</title>
+    <title>Cadastrar Supervisor | M4tr1cul4</title>
     <link rel="icon" type="image/png" href="../assets/logo_branca.png">
     <link rel="stylesheet" href="../css/cadastraSupervisor.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
-
 <body>
-    <div class="container">
-    <div class="cadastra-supervisor-box">
-        <a href="telaSupervisor.html" style="display:inline-block;margin-bottom:20px;color:#3498db;text-decoration:none;font-weight:600;">&larr; Voltar</a>
-        <h2 class="cadastra-supervisor-title">Cadastrar Supervisor</h2>
-            <form id="cadastraSupervisorForm">
-                <div class="input-group">
-                    <label for="nome">Nome completo:</label>
-                    <input type="text" id="nome" name="nome" required>
-                    
-                    <label for="cpf">CPF:</label>
-                    <input type="text" id="cpf" name="cpf" required>
-                    
-                    <label for="dataNascimento">Data de nascimento:</label>
-                    <input type="date" id="dataNascimento" name="dataNascimento" required>
-                    
-                    <label for="telefone">Telefone:</label>
-                    <input type="text" id="telefone" name="telefone" required>
-                    
-                    <label for="endereco">Endereço:</label>
-                    <input type="text" id="endereco" name="endereco" required>
-                    
-                    <label for="rg">RG:</label>
-                    <input type="text" id="rg" name="rg" required>
-                    
-                    <label for="email">E-mail:</label>
-                    <input type="email" id="email" name="email" required>
-                    
-                    <label for="senha">Senha:</label>
-                    <input type="password" id="senha" name="senha" required>
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <img src="../assets/logo_branca.png" alt="M4tr1cul4 Logo" class="sidebar-logo">
+            </div>
+            
+            <nav class="sidebar-nav">
+                <div class="nav-section">
+                    <h3 class="nav-section-title">Cadastros</h3>
+                    <ul>
+                        <li>
+                            <button class="nav-btn expand-btn" onclick="toggleSubmenu('submenuCadastrar')">
+                                <i class="fas fa-user-plus"></i>
+                                <span>Cadastrar</span>
+                                <i class="fas fa-chevron-down"></i>
+                            </button>
+                            <div class="submenu" id="submenuCadastrar">
+                                <button class="submenu-btn" onclick="window.location.href='cadastroAtendente.html'">
+                                    <i class="fas fa-user-tie"></i> Atendente
+                                </button>
+                                <button class="submenu-btn active">
+                                    <i class="fas fa-user-shield"></i> Supervisor
+                                </button>
+                            </div>
+                        </li>
+                    </ul>
                 </div>
-                <button type="submit">Cadastrar supervisor</button>
-            </form>
-            <p class="error-message" id="errorMessage"></p>
-        </div>
+                
+                <div class="nav-section">
+                    <h3 class="nav-section-title">Navegação</h3>
+                    <ul>
+                        <li>
+                            <button class="nav-btn" onclick="window.location.href='telaSupervisor.html'">
+                                <i class="fas fa-home"></i>
+                                <span>Dashboard</span>
+                            </button>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+            
+            <div class="sidebar-footer">
+                <button class="logout-btn" onclick="logout()">
+                    <i class="fas fa-sign-out-alt"></i> Sair
+                </button>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <header class="content-header">
+                <h1>Cadastrar Supervisor</h1>
+                <div class="user-info">
+                    <span id="userName">Supervisor</span>
+                    <div class="user-avatar">
+                        <i class="fas fa-user-shield"></i>
+                    </div>
+                </div>
+            </header>
+            
+            <div class="content-body">
+                <div class="form-container">
+                    <form id="cadastraSupervisorForm" class="form-cadastro">
+                        <div class="form-header">
+                            <h2><i class="fas fa-user-shield"></i> Informações do Supervisor</h2>
+                        </div>
+                        
+                        <div class="form-grid">
+                            <div class="input-group">
+                                <label for="nome"><i class="fas fa-user"></i> Nome Completo</label>
+                                <input type="text" id="nome" name="nome" placeholder="Digite o nome completo" required>
+                            </div>
+                            
+                            <div class="input-group">
+                                <label for="cpf"><i class="fas fa-id-card"></i> CPF</label>
+                                <input type="text" id="cpf" name="cpf" placeholder="Sem pontuação" required>
+                            </div>
+                            
+                            <div class="input-group">
+                                <label for="dataNascimento"><i class="fas fa-calendar-alt"></i> Data de Nascimento</label>
+                                <input type="date" id="dataNascimento" name="dataNascimento" required>
+                            </div>
+                            
+                            <div class="input-group">
+                                <label for="telefone"><i class="fas fa-phone"></i> Telefone</label>
+                                <input type="text" id="telefone" name="telefone" placeholder="Sem pontuação" required>
+                            </div>
+                            
+                            <div class="input-group">
+                                <label for="endereco"><i class="fas fa-map-marker-alt"></i> Endereço</label>
+                                <input type="text" id="endereco" name="endereco" placeholder="Rua, Número, Bairro" required>
+                            </div>
+                            
+                            <div class="input-group">
+                                <label for="rg"><i class="fas fa-address-card"></i> RG</label>
+                                <input type="text" id="rg" name="rg" placeholder="Sem pontuação" required>
+                            </div>
+                            
+                            <div class="input-group">
+                                <label for="email"><i class="fas fa-envelope"></i> E-mail</label>
+                                <input type="email" id="email" name="email" placeholder="supervisor@instituicao.com" required>
+                            </div>
+                            
+                            <div class="input-group">
+                                <label for="senha"><i class="fas fa-lock"></i> Senha</label>
+                                <input type="password" id="senha" name="senha" placeholder="••••••••" required>
+                                <i class="fas fa-eye password-toggle" id="togglePassword"></i>
+                            </div>
+                        </div>
+                        
+                        <div class="form-actions">
+                            <button type="button" class="secondary-btn" onclick="window.location.href='telaSupervisor.html'">
+                                <i class="fas fa-arrow-left"></i> Voltar
+                            </button>
+                            <button type="submit" class="primary-btn">
+                                <i class="fas fa-save"></i> Cadastrar Supervisor
+                            </button>
+                        </div>
+                        
+                        <p class="error-message" id="errorMessage"></p>
+                    </form>
+                </div>
+            </div>
+        </main>
     </div>
-</body>
-    <script src="../js/auth.js"></script>   
+
+    <script src="../js/auth.js"></script>
     <script src="../js/config.js"></script>
     <script src="../js/cadastraSupervisor.js"></script>
+    <script>
+        // Mostrar/ocultar senha
+        const togglePassword = document.getElementById('togglePassword');
+        const passwordInput = document.getElementById('senha');
+        
+        if (togglePassword && passwordInput) {
+            togglePassword.addEventListener('click', function() {
+                const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+                passwordInput.setAttribute('type', type);
+                this.classList.toggle('fa-eye-slash');
+            });
+        }
+
+        // Função para alternar submenus
+        function toggleSubmenu(id) {
+            document.querySelectorAll('.submenu').forEach(sub => {
+                if (sub.id !== id) sub.classList.remove('show');
+            });
+            document.getElementById(id).classList.toggle('show');
+        }
+    </script>
+</body>
 </html>

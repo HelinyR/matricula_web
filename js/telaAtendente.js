@@ -51,11 +51,15 @@ async function carregarCandidatos() {
             tr.innerHTML = `
                 <td>${cd.nome}</td>
                 <td>${cd.cpf}</td>
+                <td>${cd.matricula}</td>
                 <td>${cd.data_nascimento ? new Date(cd.data_nascimento).toLocaleDateString() : ''}</td>
                 <td>${cd.telefone}</td>
                 <td>${cd.endereco}</td>
                 <td>${cd.rg}</td>
                 <td>${cd.email}</td>
+                <td>${cd.curso}</td>
+                <td>${cd.turno}</td>
+
             `;
             tabela.appendChild(tr);
         });
@@ -91,77 +95,77 @@ function carregarMinhasInformacoes() {
 document.addEventListener('DOMContentLoaded', function() {
     showSection('bemVindo');
 
-    // Modal de cadastro de candidato
-    const btnNovo = document.getElementById('btnNovoCandidato');
-    const modal = document.getElementById('modalCandidato');
-    const fechar = document.getElementById('fecharModalCandidato');
-    const form = document.getElementById('formCandidato');
-    const msgForm = document.getElementById('msgFormCandidato');
+    // // Modal de cadastro de candidato
+    // const btnNovo = document.getElementById('btnNovoCandidato');
+    // const modal = document.getElementById('modalCandidato');
+    // const fechar = document.getElementById('fecharModalCandidato');
+    // const form = document.getElementById('formCandidato');
+    // const msgForm = document.getElementById('msgFormCandidato');
 
-    if (btnNovo && modal && fechar && form) {
-        btnNovo.onclick = () => { modal.style.display = 'flex'; };
-        fechar.onclick = () => { modal.style.display = 'none'; msgForm.textContent = ''; };
-        modal.onclick = (e) => { if (e.target === modal) { modal.style.display = 'none'; msgForm.textContent = ''; } };
+    // if (btnNovo && modal && fechar && form) {
+    //     btnNovo.onclick = () => { modal.style.display = 'flex'; };
+    //     fechar.onclick = () => { modal.style.display = 'none'; msgForm.textContent = ''; };
+    //     modal.onclick = (e) => { if (e.target === modal) { modal.style.display = 'none'; msgForm.textContent = ''; } };
 
-        form.onsubmit = async function(e) {
-            e.preventDefault();
-            msgForm.textContent = '';
-            msgForm.style.display = 'none';
+    //     form.onsubmit = async function(e) {
+    //         e.preventDefault();
+    //         msgForm.textContent = '';
+    //         msgForm.style.display = 'none';
 
-            const formData = new FormData(form);
-            const data = {};
-            formData.forEach((v, k) => data[k] = v);
+    //         const formData = new FormData(form);
+    //         const data = {};
+    //         formData.forEach((v, k) => data[k] = v);
 
-            // Validação rápida no frontend
-            for (const campo of ['nome','cpf','data_nascimento','telefone','endereco','rg','email','matricula','curso','unidade','turno']) {
-                if (!data[campo]) {
-                    msgForm.textContent = 'Preencha todos os campos obrigatórios.';
-                    msgForm.style.display = 'block';
-                    return;
-                }
-            }
+    //         // Validação rápida no frontend
+    //         for (const campo of ['nome','cpf','data_nascimento','telefone','endereco','rg','email','matricula','curso','unidade','turno']) {
+    //             if (!data[campo]) {
+    //                 msgForm.textContent = 'Preencha todos os campos obrigatórios.';
+    //                 msgForm.style.display = 'block';
+    //                 return;
+    //             }
+    //         }
 
-            // Garante formato da data: YYYY-MM-DD
-            if (data.data_nascimento) {
-                data.data_nascimento = data.data_nascimento.slice(0, 10);
-            }
+    //         // Garante formato da data: YYYY-MM-DD
+    //         if (data.data_nascimento) {
+    //             data.data_nascimento = data.data_nascimento.slice(0, 10);
+    //         }
 
-            const token = localStorage.getItem('token');
-            try {
-                const response = await fetch(window.APP_CONFIG.API_BASE_URL + '/candidato', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${token}`
-                    },
-                    body: JSON.stringify(data)
-                });
+    //         const token = localStorage.getItem('token');
+    //         try {
+    //             const response = await fetch(window.APP_CONFIG.API_BASE_URL + '/candidato', {
+    //                 method: 'POST',
+    //                 headers: {
+    //                     'Content-Type': 'application/json',
+    //                     'Authorization': `Bearer ${token}`
+    //                 },
+    //                 body: JSON.stringify(data)
+    //             });
 
-                if (!response.ok) {
-                    let erro;
-                    try {
-                        erro = await response.json();
-                    } catch (e) {
-                        erro = { error: 'Erro desconhecido ao cadastrar candidato.' };
-                    }
-                    msgForm.textContent = erro.error || erro.mensagem || erro.erro || 'Erro ao cadastrar candidato.';
-                    msgForm.style.display = 'block';
-                    return;
-                }
+    //             if (!response.ok) {
+    //                 let erro;
+    //                 try {
+    //                     erro = await response.json();
+    //                 } catch (e) {
+    //                     erro = { error: 'Erro desconhecido ao cadastrar candidato.' };
+    //                 }
+    //                 msgForm.textContent = erro.error || erro.mensagem || erro.erro || 'Erro ao cadastrar candidato.';
+    //                 msgForm.style.display = 'block';
+    //                 return;
+    //             }
 
-                // Sucesso
-                const resp = await response.json();
-                modal.style.display = 'none';
-                form.reset();
-                carregarCandidatos();
-                // Mensagem de sucesso (opcional)
-                setTimeout(() => {
-                    alert(resp.mensagem || 'Candidato criado com sucesso!');
-                }, 100);
-            } catch (error) {
-                msgForm.textContent = 'Erro ao conectar com o servidor.';
-                msgForm.style.display = 'block';
-            }
-        };
-    }
+    //             // Sucesso
+    //             const resp = await response.json();
+    //             modal.style.display = 'none';
+    //             form.reset();
+    //             carregarCandidatos();
+    //             // Mensagem de sucesso (opcional)
+    //             setTimeout(() => {
+    //                 alert(resp.mensagem || 'Candidato criado com sucesso!');
+    //             }, 100);
+    //         } catch (error) {
+    //             msgForm.textContent = 'Erro ao conectar com o servidor.';
+    //             msgForm.style.display = 'block';
+    //         }
+    //     };
+    // }
 });
